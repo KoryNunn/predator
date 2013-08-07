@@ -40,6 +40,8 @@ function findChildsExposedBox(child){
 
             if(bounds.width <= 0 || bounds.height <= 0){
                 bounds.hidden = true;
+                bounds.width = Math.max(bounds.width, 0);
+                bounds.height = Math.max(bounds.height, 0);
                 return bounds;
             }
         }
