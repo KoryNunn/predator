@@ -42,7 +42,7 @@ window.onload = function(){
     });
 
     test('unobscured element', function (t) {
-        t.plan(1);
+        t.plan(4);
 
         var box = createBox({
                 height:300,
@@ -58,18 +58,16 @@ window.onload = function(){
         delete rect.right;
         delete rect.bottom;
         
-        t.deepEqual(rect, {
-            height:300,
-            width:300,
-            top:200,
-            left:200
-        });
+        t.equal(rect.height, 300);
+        t.equal(rect.width, 300);
+        t.equal(rect.top, 200);
+        t.equal(rect.left, 200);
         t.end();
         cleanup();
     });
 
     test('obscured overflow visible parent element', function (t) {
-        t.plan(1);
+        t.plan(4);
 
         var box = createBox({
                 height:300,
@@ -85,19 +83,17 @@ window.onload = function(){
         delete rect.right;
         delete rect.bottom;
         
-        t.deepEqual(rect, {
-            height:300,
-            width:300,
-            top:0,
-            left:200
-        });
+        t.equal(rect.height, 300);
+        t.equal(rect.width, 300);
+        t.equal(rect.top, 0);
+        t.equal(rect.left, 200);
         t.end();
         cleanup();
     });
 
 
     test('top obscured element', function (t) {
-        t.plan(1);
+        t.plan(4);
 
         var box = createBox({
                 height:300,
@@ -114,13 +110,11 @@ window.onload = function(){
 
         delete rect.right;
         delete rect.bottom;
-        
-        t.deepEqual(rect, {
-            height:200,
-            width:300,
-            top:400,
-            left:200
-        });
+
+        t.equal(rect.height, 200);
+        t.equal(rect.width, 300);
+        t.equal(rect.top, 400);
+        t.equal(rect.left, 200);
         t.end();
         cleanup();
     });
@@ -128,7 +122,7 @@ window.onload = function(){
 
 
     test('left obscured element', function (t) {
-        t.plan(1);
+        t.plan(4);
 
         var box = createBox({
                 height:300,
@@ -145,19 +139,17 @@ window.onload = function(){
 
         delete rect.right;
         delete rect.bottom;
-        
-        t.deepEqual(rect, {
-            height:300,
-            width:200,
-            top:200,
-            left:100
-        });
+
+        t.equal(rect.height, 300);
+        t.equal(rect.width, 200);
+        t.equal(rect.top, 200);
+        t.equal(rect.left, 100);
         t.end();
         cleanup();
     });
 
     test('bottom obscured element', function (t) {
-        t.plan(1);
+        t.plan(4);
 
         var box = createBox({
                 height:300,
@@ -175,18 +167,16 @@ window.onload = function(){
         delete rect.right;
         delete rect.bottom;
         
-        t.deepEqual(rect, {
-            height:200,
-            width:300,
-            top:400,
-            left:200
-        });
+        t.equal(rect.height, 200);
+        t.equal(rect.width, 300);
+        t.equal(rect.top, 400);
+        t.equal(rect.left, 200);
         t.end();
         cleanup();
     });
 
     test('right obscured element', function (t) {
-        t.plan(1);
+        t.plan(4);
 
         var box = createBox({
                 height:300,
@@ -204,18 +194,16 @@ window.onload = function(){
         delete rect.right;
         delete rect.bottom;
         
-        t.deepEqual(rect, {
-            height:300,
-            width:200,
-            top:200,
-            left:400
-        });
+        t.equal(rect.height, 300);
+        t.equal(rect.width, 200);
+        t.equal(rect.top, 200);
+        t.equal(rect.left, 400);
         t.end();
         cleanup();
     });
 
     test('left top obscured element', function (t) {
-        t.plan(1);
+        t.plan(4);
 
         var box = createBox({
                 height:300,
@@ -233,15 +221,40 @@ window.onload = function(){
         delete rect.right;
         delete rect.bottom;
         
-        t.deepEqual(rect, {
-            height:200,
-            width:200,
-            top:100,
-            left:100
-        });
+        t.equal(rect.height, 200);
+        t.equal(rect.width, 200);
+        t.equal(rect.top, 100);
+        t.equal(rect.left, 100);
         t.end();
         cleanup();
     });
 
+    test('completely off the top element', function (t) {
+        t.plan(5);
+
+        var box = createBox({
+                height:300,
+                width:300,
+                top:-500,
+                left:100
+            });
+
+        testArea.style.overflow = 'hidden';  
+
+        testArea.appendChild(box);
+
+        var rect = predator(box);
+
+        delete rect.right;
+        delete rect.bottom;
+        
+        t.equal(rect.height, 0);
+        t.equal(rect.width, 300);
+        t.equal(rect.top, 100);
+        t.equal(rect.left, 200);
+        t.equal(rect.hidden, true);
+        t.end();
+        cleanup();
+    });
 
 };

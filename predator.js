@@ -7,7 +7,7 @@ function findChildsExposedBox(child){
 
     // Convert bounds object to pojo.
     bounds = {
-        original: originalBounds
+        original: originalBounds,
         height: originalBounds.height,
         width: originalBounds.width,
         left: originalBounds.left,
