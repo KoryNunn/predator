@@ -23,7 +23,23 @@ function cleanup(){
 window.onload = function(){
 
     testArea = document.body;
-    testArea.style.overflow = 'visible';  
+    testArea.style.overflow = 'visible'; 
+
+    [
+        "position:absolute;",
+        "top:100px;",
+        "left:100px;",
+        "bottom:100px;",
+        "right:100px;",
+        "padding:0;",
+        "margin:0;",
+        "width:500px;",
+        "height:500px;"
+    ].forEach(function(thing){
+        thing = thing.replace(';','');
+        thing = thing.split(':');
+        testArea.style[thing.shift()] = thing.shift();
+    });
 
     test('unobscured element', function (t) {
         t.plan(1);
