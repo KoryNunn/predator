@@ -1,17 +1,19 @@
 function findChildsExposedBox(child){
-    var bounds = child.getBoundingClientRect(),
+    var originalBounds = child.getBoundingClientRect(),
         parent = child.parentNode,
         parentOverflow,
-        parentBounds;
+        parentBounds,
+        bounds;
 
     // Convert bounds object to pojo.
     bounds = {
-        height: bounds.height,
-        width: bounds.width,
-        left: bounds.left,
-        top: bounds.top,
-        right: bounds.right,
-        bottom: bounds.bottom
+        original: originalBounds
+        height: originalBounds.height,
+        width: originalBounds.width,
+        left: originalBounds.left,
+        top: originalBounds.top,
+        right: originalBounds.right,
+        bottom: originalBounds.bottom
     };
 
     while(parent && parent !== document){
@@ -37,7 +39,8 @@ function findChildsExposedBox(child){
             }
 
             if(bounds.width <= 0 || bounds.height <= 0){
-                return false;
+                bounds.hidden = true;
+                return bounds;
             }
         }
 
