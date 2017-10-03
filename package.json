@@ -16,8 +16,8 @@
   },
   "contributors": [],
   "devDependencies": {
-    "tape": ">=0.0.4",
-    "crel": ">=1.0.0"
+    "crel": ">=1.0.0",
+    "tape": "^4.8.0"
   },
   "scripts": {
     "test": "node ./test/test.js"

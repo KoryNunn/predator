@@ -27,7 +27,8 @@ function findChildsExposedBox(child){
                 width: window.innerWidth
             };
         }else{
-            if(window.getComputedStyle(parent).overflow === 'visible'){
+            var parentOverflow = window.getComputedStyle(parent).overflow;
+            if(parentOverflow === '' || parentOverflow === 'visible'){
                 parent = parent.parentNode;
                 continue;
             }
