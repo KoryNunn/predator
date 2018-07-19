@@ -20,6 +20,7 @@
     "tape": "^4.8.0"
   },
   "scripts": {
+    "watch": "watchify -d ./test/test.js -o ./test/test.browser.js",
     "test": "node ./test/test.js"
   },
   "testling": {

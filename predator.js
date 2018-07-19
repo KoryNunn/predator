@@ -1,5 +1,6 @@
 function findChildsExposedBox(child){
-    var originalBounds = child.getBoundingClientRect(),
+    var childWindow = (child.ownerDocument || child).defaultView,
+        originalBounds = child.getBoundingClientRect(),
         parent = child.parentNode,
         parentOverflow,
         parentBounds,
@@ -21,13 +22,13 @@ function findChildsExposedBox(child){
             parentBounds = {
                 top: 0,
                 left: 0,
-                bottom: window.innerHeight,
-                right: window.innerWidth,
-                height: window.innerHeight,
-                width: window.innerWidth
+                bottom: childWindow.innerHeight,
+                right: childWindow.innerWidth,
+                height: childWindow.innerHeight,
+                width: childWindow.innerWidth
             };
         }else{
-            var parentOverflow = window.getComputedStyle(parent).overflow;
+            var parentOverflow = childWindow.getComputedStyle(parent).overflow;
             if(parentOverflow === '' || parentOverflow === 'visible'){
                 parent = parent.parentNode;
                 continue;
