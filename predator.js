@@ -1,5 +1,6 @@
 function findChildsExposedBox(child){
     var childWindow = (child.ownerDocument || child).defaultView,
+        childDocument = child.ownerDocument || child,
         originalBounds = child.getBoundingClientRect(),
         parent = child.parentNode,
         parentOverflow,
@@ -18,7 +19,7 @@ function findChildsExposedBox(child){
     };
 
     while(parent){
-        if(parent === document){
+        if(parent === childDocument){
             parentBounds = {
                 top: 0,
                 left: 0,
