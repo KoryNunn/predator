@@ -1,6 +1,6 @@
 # predator
 
-Finds the exposed box, if there is on, of a child DOM element.
+Finds the exposed box, if there is one, of a child DOM element.
 
 Useful if you want to check if an element is visible to the user, and how much of it.
 
