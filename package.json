@@ -16,12 +16,14 @@
   },
   "contributors": [],
   "devDependencies": {
+    "browserify": "^16.2.3",
     "crel": ">=1.0.0",
     "tape": "^4.8.0"
   },
   "scripts": {
-    "watch": "watchify -d ./test/test.js -o ./test/test.browser.js",
-    "test": "node ./test/test.js"
+    "watchTest": "watchify -d ./test/test.js -o ./test/test.browser.js",
+    "buildTest": "browserify -d ./test/test.js > ./test/test.browser.js",
+    "test": "npm run buildTest && xdg-open ./test/test.html"
   },
   "testling": {
     "files": "test/*.js",
@@ -31,5 +33,8 @@
       "ff/13",
       "chrome/20"
     ]
+  },
+  "dependencies": {
+    "watchify": "^3.11.1"
   }
 }

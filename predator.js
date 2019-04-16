@@ -29,8 +29,14 @@ function findChildsExposedBox(child){
                 width: childWindow.innerWidth
             };
         }else{
-            var parentOverflow = childWindow.getComputedStyle(parent).overflow;
-            if(parentOverflow === '' || parentOverflow === 'visible'){
+            var parentStyle = childWindow.getComputedStyle(parent);
+            var parentPosition = parentStyle.position;
+            var parentOverflow = parentStyle.overflow;
+            if(
+                parentOverflow === '' ||
+                parentOverflow === 'visible' ||
+                !(parentPosition === 'fixed' || parentPosition === 'absolute')
+            ){
                 parent = parent.parentNode;
                 continue;
             }

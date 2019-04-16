@@ -16,14 +16,15 @@ function createBox(position){
 }
 
 function cleanup(){
-    testArea.style.overflow = 'visible';  
-    //testArea.innerHTML = '';
+    testArea.style.overflow = 'visible';
+    testArea.innerHTML = '';
 }
 
 window.onload = function(){
 
-    testArea = document.body;
-    testArea.style.overflow = 'visible'; 
+    testArea = document.createElement('section');
+    document.body.appendChild(testArea);
+    testArea.style.overflow = 'visible';
 
     [
         "position:absolute;",
@@ -57,7 +58,7 @@ window.onload = function(){
 
         delete rect.right;
         delete rect.bottom;
-        
+
         t.equal(rect.height, 300);
         t.equal(rect.width, 300);
         t.equal(rect.top, 200);
@@ -82,7 +83,7 @@ window.onload = function(){
 
         delete rect.right;
         delete rect.bottom;
-        
+
         t.equal(rect.height, 300);
         t.equal(rect.width, 300);
         t.equal(rect.top, 0);
@@ -102,7 +103,7 @@ window.onload = function(){
                 left:100
             });
 
-        testArea.style.overflow = 'hidden';  
+        testArea.style.overflow = 'hidden';
 
         testArea.appendChild(box);
 
@@ -131,7 +132,7 @@ window.onload = function(){
                 left:-100
             });
 
-        testArea.style.overflow = 'hidden';  
+        testArea.style.overflow = 'hidden';
 
         testArea.appendChild(box);
 
@@ -158,7 +159,7 @@ window.onload = function(){
                 left:100
             });
 
-        testArea.style.overflow = 'hidden';  
+        testArea.style.overflow = 'hidden';
 
         testArea.appendChild(box);
 
@@ -166,7 +167,7 @@ window.onload = function(){
 
         delete rect.right;
         delete rect.bottom;
-        
+
         t.equal(rect.height, 200);
         t.equal(rect.width, 300);
         t.equal(rect.top, 400);
@@ -185,7 +186,7 @@ window.onload = function(){
                 left:300
             });
 
-        testArea.style.overflow = 'hidden';  
+        testArea.style.overflow = 'hidden';
 
         testArea.appendChild(box);
 
@@ -193,7 +194,7 @@ window.onload = function(){
 
         delete rect.right;
         delete rect.bottom;
-        
+
         t.equal(rect.height, 300);
         t.equal(rect.width, 200);
         t.equal(rect.top, 200);
@@ -212,7 +213,7 @@ window.onload = function(){
                 left:-100
             });
 
-        testArea.style.overflow = 'hidden';  
+        testArea.style.overflow = 'hidden';
 
         testArea.appendChild(box);
 
@@ -220,7 +221,7 @@ window.onload = function(){
 
         delete rect.right;
         delete rect.bottom;
-        
+
         t.equal(rect.height, 200);
         t.equal(rect.width, 200);
         t.equal(rect.top, 100);
@@ -239,7 +240,7 @@ window.onload = function(){
                 left:100
             });
 
-        testArea.style.overflow = 'hidden';  
+        testArea.style.overflow = 'hidden';
 
         testArea.appendChild(box);
 
@@ -247,12 +248,45 @@ window.onload = function(){
 
         delete rect.right;
         delete rect.bottom;
-        
+
         t.equal(rect.height, 0);
         t.equal(rect.width, 300);
         t.equal(rect.top, 100);
         t.equal(rect.left, 200);
         t.equal(rect.hidden, true);
+        t.end();
+        cleanup();
+    });
+
+    test('an absolute child in a relative parent with overflow=hidden should be visible', function (t) {
+        t.plan(5);
+
+        var parent = createBox({
+                height:300,
+                width:300,
+                top:0,
+                left:0
+            });
+        parent.style.position = null;
+        parent.style.overflow = 'hidden';
+
+        var box = createBox({
+                height:300,
+                width:300,
+                top:500,
+                left:100
+            });
+
+        parent.appendChild(box);
+        testArea.appendChild(parent);
+
+        var rect = predator(box);
+
+        t.equal(rect.height, 300);
+        t.equal(rect.width, 300);
+        t.equal(rect.top, 600);
+        t.equal(rect.left, 200);
+        t.notOk(rect.hidden);
         t.end();
         cleanup();
     });
