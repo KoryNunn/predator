@@ -291,4 +291,45 @@ window.onload = function(){
         cleanup();
     });
 
+    test('a static child in a static parent with overflow=scroll should not be visible', function (t) {
+        t.plan(5);
+
+        var parent = createBox({
+                height:300,
+                width:300,
+                top:0,
+                left:0
+            });
+        parent.style.position = null;
+        parent.style.overflow = 'scroll';
+
+        var box1 = createBox({
+                height:300,
+                width:300
+            });
+        box1.style.position = null;
+        box1.style.overflow = null;
+
+        var box2 = createBox({
+                height:300,
+                width:300
+            });
+        box2.style.position = null;
+        box2.style.overflow = null;
+
+        parent.appendChild(box1);
+        parent.appendChild(box2);
+        testArea.appendChild(parent);
+
+        var rect = predator(box2);
+
+        t.equal(rect.height, 0);
+        t.equal(rect.width, 300);
+        t.equal(rect.top, 400);
+        t.equal(rect.left, 100);
+        t.ok(rect.hidden);
+        t.end();
+        cleanup();
+    });
+
 };

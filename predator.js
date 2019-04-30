@@ -1,4 +1,4 @@
-function findChildsExposedBox(child){
+function getExposedBoundingRect(child){
     var childWindow = (child.ownerDocument || child).defaultView,
         childDocument = child.ownerDocument || child,
         originalBounds = child.getBoundingClientRect(),
@@ -29,14 +29,20 @@ function findChildsExposedBox(child){
                 width: childWindow.innerWidth
             };
         }else{
+            var childStyle = childWindow.getComputedStyle(child);
             var parentStyle = childWindow.getComputedStyle(parent);
+            var childPosition = childStyle.position;
             var parentPosition = parentStyle.position;
             var parentOverflow = parentStyle.overflow;
             if(
                 parentOverflow === '' ||
                 parentOverflow === 'visible' ||
-                !(parentPosition === 'fixed' || parentPosition === 'absolute')
+                (
+                    (childPosition === 'fixed' || childPosition === 'absolute') &&
+                    !(parentPosition === 'fixed' || parentPosition === 'absolute')
+                )
             ){
+                child = parent;
                 parent = parent.parentNode;
                 continue;
             }
@@ -73,4 +79,4 @@ function findChildsExposedBox(child){
     return bounds;
 }
 
-module.exports = findChildsExposedBox;
+module.exports = getExposedBoundingRect;
