@@ -35,6 +35,6 @@
     ]
   },
   "dependencies": {
-    "watchify": "^3.11.1"
+    "watchify": "^4.0.0"
   }
 }
